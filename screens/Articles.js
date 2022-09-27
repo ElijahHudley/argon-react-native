@@ -1,18 +1,17 @@
-//galio
-import { Block, Text, theme } from "galio-framework";
+import React from "react";
 import {
-  Dimensions,
-  Image,
-  ImageBackground,
   ScrollView,
   StyleSheet,
+  Image,
   TouchableWithoutFeedback,
+  ImageBackground,
+  Dimensions
 } from "react-native";
+//galio
+import { Block, Text, theme } from "galio-framework";
 //argon
-import { Images, argonTheme, articles } from "../constants/";
-
-import { Card } from "../components/";
-import React from "react";
+import { articles, Images, argonTheme } from "../constants/";
+import { Card, Button } from "../components/";
 
 const { width } = Dimensions.get("screen");
 
@@ -25,7 +24,7 @@ const categories = [
       "Rock music is a genre of popular music. It developed during and after the 1960s in the United Kingdom.",
     image:
       "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?fit=crop&w=840&q=80",
-    price: "$125",
+    price: "$125"
   },
   {
     title: "Events",
@@ -33,8 +32,8 @@ const categories = [
       "Rock music is a genre of popular music. It developed during and after the 1960s in the United Kingdom.",
     image:
       "https://images.unsplash.com/photo-1543747579-795b9c2c3ada?fit=crop&w=840&q=80",
-    price: "$35",
-  },
+    price: "$35"
+  }
 ];
 
 class Articles extends React.Component {
@@ -57,18 +56,18 @@ class Articles extends React.Component {
             <Text
               center
               size={16}
-              color={theme.COLORS.MUTED}
+              color="#525F7F"
               style={styles.productPrice}
             >
               {item.price}
             </Text>
-            <Text center size={34}>
+            <Text style={{ fontFamily: 'open-sans-regular' }} center size={34} color={argonTheme.COLORS.TEXT}>
               {item.title}
             </Text>
             <Text
               center
               size={16}
-              color={theme.COLORS.MUTED}
+              color={argonTheme.COLORS.MUTED}
               style={styles.productDescription}
             >
               {item.description}
@@ -82,7 +81,7 @@ class Articles extends React.Component {
   renderCards = () => {
     return (
       <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>
+        <Text size={16} style={styles.title}>
           Cards
         </Text>
         <Block flex>
@@ -101,15 +100,15 @@ class Articles extends React.Component {
                 source={{ uri: Images.Products["View article"] }}
                 style={[
                   styles.imageBlock,
-                  { width: width - theme.SIZES.BASE * 2, height: 252 },
+                  { width: width - theme.SIZES.BASE * 2, height: 252 }
                 ]}
                 imageStyle={{
                   width: width - theme.SIZES.BASE * 2,
-                  height: 252,
+                  height: 252
                 }}
               >
                 <Block style={styles.categoryTitle}>
-                  <Text size={18} bold color={theme.COLORS.WHITE}>
+                  <Text style={{ fontFamily: 'open-sans-bold' }} size={18} color={theme.COLORS.WHITE}>
                     View article
                   </Text>
                 </Block>
@@ -126,7 +125,7 @@ class Articles extends React.Component {
               showsHorizontalScrollIndicator={false}
               snapToInterval={cardWidth + theme.SIZES.BASE * 0.375}
               contentContainerStyle={{
-                paddingHorizontal: theme.SIZES.BASE / 2,
+                paddingHorizontal: theme.SIZES.BASE / 2
               }}
             >
               {categories &&
@@ -148,18 +147,18 @@ class Articles extends React.Component {
         flex
         style={[styles.group, { paddingBottom: theme.SIZES.BASE * 5 }]}
       >
-        <Text bold size={16} style={styles.title}>
+        <Block style={{ marginHorizontal: theme.SIZES.BASE * 2 }}>
+          <Block row space="between">
+          <Text bold size={16} color="#525F7F" style={{ marginTop: 3 }}>
           Album
         </Text>
-        <Block style={{ marginHorizontal: theme.SIZES.BASE * 2 }}>
-          <Block flex right>
-            <Text
-              size={12}
-              color={theme.COLORS.PRIMARY}
-              onPress={() => navigation.navigate("Home")}
+            <Button
+              small
+              color="transparent"
+              textStyle={{ color: "#5E72E4", fontSize: 14 }}
             >
               View All
-            </Text>
+            </Button>
           </Block>
           <Block
             row
@@ -199,32 +198,33 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.SIZES.BASE * 2,
     marginTop: 22,
     color: argonTheme.COLORS.HEADER,
+    fontFamily: 'open-sans-bold'
   },
   group: {
-    paddingTop: theme.SIZES.BASE,
+    paddingTop: theme.SIZES.BASE
   },
   albumThumb: {
     borderRadius: 4,
     marginVertical: 4,
     alignSelf: "center",
     width: thumbMeasure,
-    height: thumbMeasure,
+    height: thumbMeasure
   },
   category: {
     backgroundColor: theme.COLORS.WHITE,
     marginVertical: theme.SIZES.BASE / 2,
-    borderWidth: 0,
+    borderWidth: 0
   },
   categoryTitle: {
     height: "100%",
     paddingHorizontal: theme.SIZES.BASE,
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
   imageBlock: {
     overflow: "hidden",
-    borderRadius: 4,
+    borderRadius: 4
   },
   productItem: {
     width: cardWidth - theme.SIZES.BASE * 2,
@@ -232,21 +232,23 @@ const styles = StyleSheet.create({
     shadowColor: "black",
     shadowOffset: { width: 0, height: 7 },
     shadowRadius: 10,
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.2
   },
   productImage: {
     width: cardWidth - theme.SIZES.BASE,
     height: cardWidth - theme.SIZES.BASE,
-    borderRadius: 3,
+    borderRadius: 3
   },
   productPrice: {
     paddingTop: theme.SIZES.BASE,
     paddingBottom: theme.SIZES.BASE / 2,
+    fontFamily: 'open-sans-bold'
   },
   productDescription: {
     paddingTop: theme.SIZES.BASE,
+    fontFamily: 'open-sans-regular'
     // paddingBottom: theme.SIZES.BASE * 2,
-  },
+  }
 });
 
 export default Articles;

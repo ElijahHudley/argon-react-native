@@ -7,7 +7,7 @@ import argonTheme from "../constants/Theme";
 
 class ArButton extends React.Component {
   render() {
-    const { small, shadowless, children, color, style, ...props } = this.props;
+    const { small, shadowless, children, color, style, fontSize, ...props } = this.props;
     
     const colorStyle = color && argonTheme.COLORS[color.toUpperCase()];
 
@@ -22,7 +22,7 @@ class ArButton extends React.Component {
       <Button
         style={buttonStyles}
         shadowless
-        textStyle={{ fontSize: 12, fontWeight: '700' }}
+        textStyle={{ fontSize: fontSize || 12, fontWeight: '700' }}
         {...props}
       >
         {children}

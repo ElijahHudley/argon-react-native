@@ -4,7 +4,8 @@ import {
   Image,
   StyleSheet,
   StatusBar,
-  Dimensions
+  Dimensions,
+  SafeAreaView
 } from "react-native";
 import { Block, Button, Text, theme } from "galio-framework";
 
@@ -18,10 +19,10 @@ class Onboarding extends React.Component {
     const { navigation } = this.props;
 
     return (
-      <Block flex style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <StatusBar hidden />
         <Block flex center>
-        <ImageBackground
+          <ImageBackground
             source={Images.Onboarding}
             style={{ height, width, zIndex: 1 }}
           />
@@ -30,50 +31,56 @@ class Onboarding extends React.Component {
           <Image source={Images.LogoOnboarding} style={styles.logo} />
         </Block>
         <Block flex space="between" style={styles.padded}>
-            <Block flex space="around" style={{ zIndex: 2 }}>
-              <Block style={styles.title}>
-                <Block>
-                  <Text color="white" size={60}>
-                    Design
-                  </Text>
-                </Block>
-                <Block>
-                  <Text color="white" size={60}>
-                    System
-                  </Text>
-                </Block>
-                <Block style={styles.subTitle}>
-                  <Text color="white" size={16}>
-                    Fully coded React Native components.
-                  </Text>
-                </Block>
+          <Block flex space="around" style={{ zIndex: 2 }}>
+            <Block style={styles.title}>
+              <Block>
+                <Text color="white" size={60}>
+                  Design
+                </Text>
               </Block>
-              <Block center>
-                <Button
-                  style={styles.button}
-                  color={argonTheme.COLORS.SECONDARY}
-                  onPress={() => navigation.navigate("App")}
-                  textStyle={{ color: argonTheme.COLORS.BLACK }}
-                >
-                  Get Started
-                </Button>
+              <Block row>
+                <Text color="white" size={60}>
+                  System
+                </Text>
+                <Block middle style={styles.pro}>
+                <Text size={16} color="white">
+                  PRO
+                </Text>
               </Block>
+              </Block>
+              <Block style={styles.subTitle}>
+                <Text color="white" size={16}>
+                  Fully coded React Native components.
+                </Text>
+              </Block>
+            </Block>
+            <Block center>
+              <Button
+                style={styles.button}
+                color={argonTheme.COLORS.SECONDARY}
+                onPress={() => navigation.navigate("Home")}
+                textStyle={{ color: argonTheme.COLORS.BLACK }}
+              >
+                Get Started
+              </Button>
+            </Block>
           </Block>
         </Block>
-      </Block>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.COLORS.BLACK
+    backgroundColor: theme.COLORS.BLACK, 
+    flex: 1,
   },
   padded: {
     paddingHorizontal: theme.SIZES.BASE * 2,
     position: "relative",
     bottom: theme.SIZES.BASE,
-    zIndex: 2,
+    zIndex: 2
   },
   button: {
     width: width - theme.SIZES.BASE * 4,
@@ -85,15 +92,23 @@ const styles = StyleSheet.create({
     width: 200,
     height: 60,
     zIndex: 2,
-    position: 'relative',
-    marginTop: '-50%'
+    position: "relative",
+    marginTop: "-50%"
   },
   title: {
-    marginTop:'-5%'
+    marginTop: "-5%"
   },
   subTitle: {
     marginTop: 20
-  }
+  },
+  pro: {
+    backgroundColor: argonTheme.COLORS.INFO,
+    paddingHorizontal: 8,
+    marginLeft: 3,
+    borderRadius: 4,
+    height: 22,
+    marginTop: 15
+  },
 });
 
 export default Onboarding;

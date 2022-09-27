@@ -8,8 +8,8 @@ export default {
     ERROR: '#F5365C',
     SUCCESS: '#2DCE89',
     WARNING: '#FB6340',
-    /*not yet changed */
-    MUTED: '#ADB5BD',
+    TEXT: '#32325D',
+    MUTED: '#8898AA',
     INPUT: '#DCDCDC',
     INPUT_SUCCESS: '#7BDEB2',
     INPUT_ERROR: '#FCB3A4',
@@ -27,6 +27,9 @@ export default {
     HEADER: '#525F7F',
     BORDER: '#CAD1D7',
     WHITE: '#FFFFFF',
-    BLACK: '#000000'
+    BLACK: '#000000',
+    TWITTER: '#1DA1F2',
+    FACEBOOK: '#3B5999',
+    DRIBBBLE: '#EA4C89'
   }
 };

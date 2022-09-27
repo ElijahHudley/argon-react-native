@@ -6,9 +6,9 @@ const { width } = Dimensions.get('screen');
 import argonTheme from '../constants/Theme';
 
 const defaultMenu = [
-  { id: 'popular', title: 'Popular', },
+  { id: 'music', title: 'Music', },
   { id: 'beauty', title: 'Beauty', },
-  { id: 'cars', title: 'Cars', },
+  { id: 'fashion', title: 'Fashion', },
   { id: 'motocycles', title: 'Motocycles', },
 ];
 
@@ -65,7 +65,7 @@ export default class Tabs extends React.Component {
 
     const textColor = this.animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [argonTheme.COLORS.BLACK, isActive ? argonTheme.COLORS.WHITE : argonTheme.COLORS.BLACK],
+      outputRange: [argonTheme.COLORS.TEXT, isActive ? argonTheme.COLORS.WHITE : argonTheme.COLORS.TEXT],
       extrapolate: 'clamp',
     });
     
@@ -80,7 +80,8 @@ export default class Tabs extends React.Component {
         <Animated.Text
           style={[
             styles.menuTitle,
-            { color: textColor }
+            { color: textColor },
+            { fontFamily: 'open-sans-bold' },
           ]}
           onPress={() => this.selectMenu(item.id)}>
           {item.title}
@@ -139,7 +140,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: argonTheme.COLORS.ACTIVE,
     borderRadius: 4,
-    marginRight: 9
+    marginRight: 9,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
   },
   containerShadow: {
     shadowColor: 'black',
@@ -152,8 +155,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
     // lineHeight: 28,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
     color: argonTheme.COLORS.MUTED
   },
 });

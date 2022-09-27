@@ -1,86 +1,85 @@
-// Galio components
-import { Block, Button as GaButton, Text, theme } from "galio-framework";
-import { Button, Header, Icon, Input, Select, Switch } from "../components/";
+import React from "react";
 import {
-  Dimensions,
   ScrollView,
   StyleSheet,
-  TouchableOpacity,
+  Dimensions,
+  TouchableOpacity
 } from "react-native";
+// Galio components
+import { Block, Text, Button as GaButton, theme } from "galio-framework";
 // Argon themed components
 import { argonTheme, tabs } from "../constants/";
-
-import React from "react";
+import { Button, Select, Icon, Input, Header, Switch } from "../components/";
 
 const { width } = Dimensions.get("screen");
 
 class Elements extends React.Component {
   state = {
     "switch-1": true,
-    "switch-2": false,
+    "switch-2": false
   };
 
-  toggleSwitch = (switchId) =>
+  toggleSwitch = switchId =>
     this.setState({ [switchId]: !this.state[switchId] });
 
   renderButtons = () => {
     return (
       <Block flex>
-        <Text bold size={16} style={styles.title}>
+        <Text size={16} style={styles.title}>
           Buttons
         </Text>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
           <Block center>
-            <Button color="default" style={styles.button}>
+            <Button textStyle={{ fontFamily: 'open-sans-bold' }} color="default" style={styles.button}>
               DEFAULT
             </Button>
           </Block>
           <Block center>
             <Button
               color="secondary"
-              textStyle={{ color: "black", fontSize: 12, fontWeight: "700" }}
+              textStyle={{ fontFamily: 'open-sans-bold', color: "black" }}
               style={styles.button}
             >
               SECONDARY
             </Button>
           </Block>
           <Block center>
-            <Button style={styles.button}>PRIMARY</Button>
+            <Button textStyle={{ fontFamily: 'open-sans-bold' }} style={styles.button}>PRIMARY</Button>
           </Block>
           <Block center>
-            <Button color="info" style={styles.button}>
+            <Button textStyle={{ fontFamily: 'open-sans-bold' }} color="info" style={styles.button}>
               INFO
             </Button>
           </Block>
           <Block center>
-            <Button color="success" style={styles.button}>
+            <Button textStyle={{ fontFamily: 'open-sans-bold' }} color="success" style={styles.button}>
               SUCCESS
             </Button>
           </Block>
           <Block center>
-            <Button color="warning" style={styles.button}>
+            <Button textStyle={{ fontFamily: 'open-sans-bold' }} color="warning" style={styles.button}>
               WARNING
             </Button>
           </Block>
           <Block center>
-            <Button color="error" style={styles.button}>
+            <Button textStyle={{ fontFamily: 'open-sans-bold' }} color="error" style={styles.button}>
               ERROR
             </Button>
           </Block>
           <Block row space="evenly">
-            <Block flex left style={{ marginTop: 8 }}>
+            <Block flex left style={{marginTop: 8}}>
               <Select
                 defaultIndex={1}
                 options={["01", "02", "03", "04", "05"]}
               />
             </Block>
             <Block flex center>
-              <Button small center color="default" style={styles.optionsButton}>
+              <Button textStyle={{ fontFamily: 'open-sans-bold', fontSize: 12 }} small center color="default" style={styles.optionsButton}>
                 DELETE
               </Button>
             </Block>
             <Block flex={1.25} right>
-              <Button center color="default" style={styles.optionsButton}>
+              <Button textStyle={{ fontFamily: 'open-sans-bold', fontSize: 12 }} center color="default" style={styles.optionsButton}>
                 SAVE FOR LATER
               </Button>
             </Block>
@@ -93,53 +92,53 @@ class Elements extends React.Component {
   renderText = () => {
     return (
       <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>
+        <Text size={16} style={styles.title}>
           Typography
         </Text>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
           <Text
             h1
-            style={{ marginBottom: theme.SIZES.BASE / 2 }}
+            style={{ fontFamily: 'open-sans-regular', marginBottom: theme.SIZES.BASE / 2 }}
             color={argonTheme.COLORS.DEFAULT}
           >
             Heading 1
           </Text>
           <Text
             h2
-            style={{ marginBottom: theme.SIZES.BASE / 2 }}
+            style={{ fontFamily: 'open-sans-regular', marginBottom: theme.SIZES.BASE / 2 }}
             color={argonTheme.COLORS.DEFAULT}
           >
             Heading 2
           </Text>
           <Text
             h3
-            style={{ marginBottom: theme.SIZES.BASE / 2 }}
+            style={{ fontFamily: 'open-sans-regular', marginBottom: theme.SIZES.BASE / 2 }}
             color={argonTheme.COLORS.DEFAULT}
           >
             Heading 3
           </Text>
           <Text
             h4
-            style={{ marginBottom: theme.SIZES.BASE / 2 }}
+            style={{ fontFamily: 'open-sans-regular', marginBottom: theme.SIZES.BASE / 2 }}
             color={argonTheme.COLORS.DEFAULT}
           >
             Heading 4
           </Text>
           <Text
             h5
-            style={{ marginBottom: theme.SIZES.BASE / 2 }}
+            style={{ fontFamily: 'open-sans-regular', marginBottom: theme.SIZES.BASE / 2 }}
             color={argonTheme.COLORS.DEFAULT}
           >
             Heading 5
           </Text>
           <Text
             p
-            style={{ marginBottom: theme.SIZES.BASE / 2 }}
+            style={{ fontFamily: 'open-sans-regular', marginBottom: theme.SIZES.BASE / 2 }}
             color={argonTheme.COLORS.DEFAULT}
           >
             Paragraph
           </Text>
-          <Text muted>This is a muted paragraph.</Text>
+          <Text style={{ fontFamily: 'open-sans-regular' }} muted>This is a muted paragraph.</Text>
         </Block>
       </Block>
     );
@@ -148,7 +147,7 @@ class Elements extends React.Component {
   renderInputs = () => {
     return (
       <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>
+        <Text size={16} style={styles.title}>
           Inputs
         </Text>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
@@ -161,7 +160,7 @@ class Elements extends React.Component {
             style={{
               borderColor: argonTheme.COLORS.INFO,
               borderRadius: 4,
-              backgroundColor: "#fff",
+              backgroundColor: "#fff"
             }}
             iconContent={<Block />}
           />
@@ -206,7 +205,7 @@ class Elements extends React.Component {
                   width: 20,
                   height: 20,
                   borderRadius: 10,
-                  backgroundColor: argonTheme.COLORS.INPUT_SUCCESS,
+                  backgroundColor: argonTheme.COLORS.INPUT_SUCCESS
                 }}
               >
                 <Icon
@@ -231,7 +230,7 @@ class Elements extends React.Component {
                   width: 20,
                   height: 20,
                   borderRadius: 10,
-                  backgroundColor: argonTheme.COLORS.INPUT_ERROR,
+                  backgroundColor: argonTheme.COLORS.INPUT_ERROR
                 }}
               >
                 <Icon
@@ -251,7 +250,7 @@ class Elements extends React.Component {
   renderSwitches = () => {
     return (
       <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>
+        <Text size={16} style={styles.title}>
           Switches
         </Text>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
@@ -261,14 +260,14 @@ class Elements extends React.Component {
             space="between"
             style={{ marginBottom: theme.SIZES.BASE }}
           >
-            <Text size={14}>Switch is ON</Text>
+            <Text style={{ fontFamily: 'open-sans-regular' }} size={14} color={argonTheme.COLORS.TEXT}>Switch is ON</Text>
             <Switch
               value={this.state["switch-1"]}
               onValueChange={() => this.toggleSwitch("switch-1")}
             />
           </Block>
           <Block row middle space="between">
-            <Text size={14}>Switch is OFF</Text>
+            <Text style={{ fontFamily: 'open-sans-regular' }} size={14} color={argonTheme.COLORS.TEXT}>Switch is OFF</Text>
             <Switch
               value={this.state["switch-2"]}
               onValueChange={() => this.toggleSwitch("switch-2")}
@@ -283,14 +282,14 @@ class Elements extends React.Component {
     const { navigation } = this.props;
     return (
       <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>
+        <Text size={16} style={styles.title}>
           Table Cell
         </Text>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
           <Block style={styles.rows}>
             <TouchableOpacity onPress={() => navigation.navigate("Pro")}>
               <Block row middle space="between" style={{ paddingTop: 7 }}>
-                <Text size={14}>Manage Options</Text>
+                <Text style={{ fontFamily: 'open-sans-regular' }} size={14} color={argonTheme.COLORS.TEXT}>Manage Options</Text>
                 <Icon
                   name="chevron-right"
                   family="entypo"
@@ -307,7 +306,7 @@ class Elements extends React.Component {
   renderSocial = () => {
     return (
       <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>
+        <Text size={16} style={styles.title}>
           Social
         </Text>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
@@ -321,7 +320,7 @@ class Elements extends React.Component {
                 iconFamily="Font-Awesome"
                 iconColor={theme.COLORS.WHITE}
                 iconSize={theme.SIZES.BASE * 1.625}
-                color={theme.COLORS.FACEBOOK}
+                color={argonTheme.COLORS.FACEBOOK}
                 style={[styles.social, styles.shadow]}
               />
             </Block>
@@ -334,7 +333,7 @@ class Elements extends React.Component {
                 iconFamily="Font-Awesome"
                 iconColor={theme.COLORS.WHITE}
                 iconSize={theme.SIZES.BASE * 1.625}
-                color={theme.COLORS.TWITTER}
+                color={argonTheme.COLORS.TWITTER}
                 style={[styles.social, styles.shadow]}
               />
             </Block>
@@ -347,7 +346,7 @@ class Elements extends React.Component {
                 iconFamily="Font-Awesome"
                 iconColor={theme.COLORS.WHITE}
                 iconSize={theme.SIZES.BASE * 1.625}
-                color={theme.COLORS.DRIBBBLE}
+                color={argonTheme.COLORS.DRIBBBLE}
                 style={[styles.social, styles.shadow]}
               />
             </Block>
@@ -360,7 +359,7 @@ class Elements extends React.Component {
   renderNavigation = () => {
     return (
       <Block flex style={styles.group}>
-        <Text bold size={16} style={styles.title}>
+        <Text size={16} style={styles.title}>
           Navigation
         </Text>
         <Block>
@@ -430,58 +429,62 @@ class Elements extends React.Component {
 
 const styles = StyleSheet.create({
   title: {
+    fontFamily: 'open-sans-bold',
     paddingBottom: theme.SIZES.BASE,
     paddingHorizontal: theme.SIZES.BASE * 2,
     marginTop: 44,
-    color: argonTheme.COLORS.HEADER,
+    color: argonTheme.COLORS.HEADER
   },
   group: {
-    paddingTop: theme.SIZES.BASE * 2,
+    paddingTop: theme.SIZES.BASE * 2
   },
   shadow: {
     shadowColor: "black",
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0.2,
-    elevation: 2,
+    elevation: 2
   },
   button: {
     marginBottom: theme.SIZES.BASE,
-    width: width - theme.SIZES.BASE * 2,
+    width: width - theme.SIZES.BASE * 2
   },
   optionsButton: {
     width: "auto",
     height: 34,
     paddingHorizontal: theme.SIZES.BASE,
-    paddingVertical: 10,
+    paddingVertical: 10
   },
   input: {
-    borderBottomWidth: 1,
+    borderBottomWidth: 1
   },
   inputDefault: {
-    borderBottomColor: argonTheme.COLORS.PLACEHOLDER,
+    borderBottomColor: argonTheme.COLORS.PLACEHOLDER
   },
   inputTheme: {
-    borderBottomColor: argonTheme.COLORS.PRIMARY,
+    borderBottomColor: argonTheme.COLORS.PRIMARY
+  },
+  inputTheme: {
+    borderBottomColor: argonTheme.COLORS.PRIMARY
   },
   inputInfo: {
-    borderBottomColor: argonTheme.COLORS.INFO,
+    borderBottomColor: argonTheme.COLORS.INFO
   },
   inputSuccess: {
-    borderBottomColor: argonTheme.COLORS.SUCCESS,
+    borderBottomColor: argonTheme.COLORS.SUCCESS
   },
   inputWarning: {
-    borderBottomColor: argonTheme.COLORS.WARNING,
+    borderBottomColor: argonTheme.COLORS.WARNING
   },
   inputDanger: {
-    borderBottomColor: argonTheme.COLORS.ERROR,
+    borderBottomColor: argonTheme.COLORS.ERROR
   },
   social: {
     width: theme.SIZES.BASE * 3.5,
     height: theme.SIZES.BASE * 3.5,
     borderRadius: theme.SIZES.BASE * 1.75,
-    justifyContent: "center",
-  },
+    justifyContent: "center"
+  }
 });
 
 export default Elements;
