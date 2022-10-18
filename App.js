@@ -48,6 +48,8 @@ export default class App extends React.Component {
       'open-sans-regular': require('./assets/font/OpenSans-Regular.ttf'),
       'open-sans-light': require('./assets/font/OpenSans-Light.ttf'),
       'open-sans-bold': require('./assets/font/OpenSans-Bold.ttf'),
+      'salt': require('./assets/font/Salt.ttf'),
+      'salt-bold': require('./assets/font/Salt-Bold.ttf'),
     });
 
     this.setState({ fontLoaded: true });

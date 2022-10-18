@@ -22,8 +22,8 @@ export default class Pro extends React.Component {
         <StatusBar barStyle="light-content" />
         <Block flex>
           <ImageBackground
-            source={null}
-            style={{ flex: 1, height: height, width, zIndex: 1 }}
+            source={Images.Onboarding}
+            style={{ flex: 1, height: height, width, zIndex: 1, backgroundColor: 'white' }}
           />
           <Block space="between" style={styles.padded}>
             <Block>
@@ -35,25 +35,18 @@ export default class Pro extends React.Component {
               </Block>
               <Block>
                 <Block>
-                  <Text style={{ fontFamily: 'open-sans-regular' }} color="white" size={60}>
-                    Argon
-                  </Text>
+                  <Text style={{ fontFamily: 'salt', fontSize: 34, textAlign: 'center', fontWeight: '200' }} color="black" size={60}>Bold Gospel Alive</Text>
                 </Block>
-                <Block>
-                  <Text style={{ fontFamily: 'open-sans-regular' }} color="white" size={60}>
-                    Design
-                  </Text>
-                </Block>
-                <Block row>
-                  <Text style={{ fontFamily: 'open-sans-regular' }} color="white" size={60}>
-                    System
-                  </Text>
-                  <Block middle style={styles.pro}>
-                    <Text style={{ fontFamily: 'open-sans-bold' }} size={16} color="white">
-                      PRO
-                    </Text>
-                  </Block>
-                </Block>
+                {/*<Block>*/}
+                {/*  <Text style={{ fontFamily: 'open-sans-regular' }} color="black" size={60}>*/}
+                {/*    Gospel*/}
+                {/*  </Text>*/}
+                {/*</Block>*/}
+                {/*<Block row>*/}
+                {/*  <Text style={{ fontFamily: 'open-sans-regular' }} color="black" size={60}>*/}
+                {/*    Alive*/}
+                {/*  </Text>*/}
+                {/*</Block>*/}
               </Block>
               <Text
                 size={16}
