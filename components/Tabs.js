@@ -10,6 +10,10 @@ const defaultMenu = [
   { id: 'beauty', title: 'Beauty', },
   { id: 'fashion', title: 'Fashion', },
   { id: 'motocycles', title: 'Motocycles', },
+  { id: 'music', title: 'Youtube Links', },
+  { id: 'service', title: 'Service', },
+  { id: 'scripture', title: 'Scripture', },
+  { id: 'videos', title: 'Videos', },
 ];
 
 export default class Tabs extends React.Component {

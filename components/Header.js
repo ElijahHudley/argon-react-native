@@ -58,7 +58,7 @@ class Header extends React.Component {
     if (title === 'Title') {
       return [
         <BellButton key='chat-title' navigation={navigation} isWhite={white} />,
-        <BasketButton key='basket-title' navigation={navigation} isWhite={white} />
+        // <BasketButton key='basket-title' navigation={navigation} isWhite={white} />
       ]
     }
 
@@ -73,7 +73,7 @@ class Header extends React.Component {
       case 'Settings':
         return ([
           <BellButton key='chat-categories' navigation={navigation} isWhite={white}/>,
-          <BasketButton key='basket-categories' navigation={navigation} isWhite={white}/>
+          // <BasketButton key='basket-categories' navigation={navigation} isWhite={white}/>
         ]);
       default:
         break;

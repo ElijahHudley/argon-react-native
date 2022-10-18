@@ -22,7 +22,7 @@ export default class Pro extends React.Component {
         <StatusBar barStyle="light-content" />
         <Block flex>
           <ImageBackground
-            source={Images.Pro}
+            source={null}
             style={{ flex: 1, height: height, width, zIndex: 1 }}
           />
           <Block space="between" style={styles.padded}>
