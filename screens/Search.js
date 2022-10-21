@@ -90,11 +90,7 @@ export default class Search extends React.Component {
     return (
       <Block style={styles.notfound}>
         <Text style={{ fontFamily: 'open-sans-regular' }} size={18} color={argonTheme.COLORS.TEXT}>
-          We didn’t find "<Text bold>{this.state.search}</Text>" in our store.
-        </Text>
-
-        <Text size={18} style={{ marginTop: theme.SIZES.BASE, fontFamily: 'open-sans-regular' }} color={argonTheme.COLORS.TEXT}>
-          You can see more products from other categories.
+          We couldn't find "<Text bold>{this.state.search}</Text>".
         </Text>
       </Block>
     );
@@ -170,8 +166,8 @@ export default class Search extends React.Component {
       return (
         <Block style={{ width: width - 40 }}>
           {this.renderNotFound()}
-          {this.renderSuggestions()}
-          <Text style={{ fontFamily: 'open-sans-regular' }} size={18} color={argonTheme.COLORS.TEXT}>Daily Deals</Text>
+          {/*{this.renderSuggestions()}*/}
+          <Text style={{ fontFamily: 'open-sans-regular' }} size={18} color={argonTheme.COLORS.TEXT}>Contents</Text>
           {this.renderDeals()}
         </Block>
       );

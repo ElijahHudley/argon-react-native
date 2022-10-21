@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 
-import { argonTheme } from "../constants";
+import { argonTheme, categories } from "../constants";
 
 class Card extends React.Component {
   render() {
@@ -34,10 +34,30 @@ class Card extends React.Component {
       styles.shadow
     ];
 
+
+    const pageForNav = (title) => {
+      const { articles } = categories;
+      switch(title) {
+        case articles.blog.title:
+          return 'Product';
+        case articles.images.title:
+          return 'Product';
+        case articles.audio.title:
+          return 'Player';
+        case articles.announcements.title:
+          return 'Product';
+        default:
+          return 'Home';
+      }
+    }
+
+    const screenName = pageForNav(item.category.title);
+    console.log('item ', item, 'screenName ', screenName);
+
     return (
       <Block row={horizontal} card flex style={cardContainer}>
         <TouchableWithoutFeedback
-          onPress={() => navigation.navigate("Product", { product: item })}
+          onPress={() => navigation.navigate(screenName, { product: item })}
         >
           <Block flex style={imgContainer}>
             <Image source={{ uri: item.image }} style={imageStyles} />
@@ -66,7 +86,7 @@ class Card extends React.Component {
                 <Block />
               )}
             </Block>
-            <Block right={ctaRight ? true : false}>
+            <Block right={true}>
               <Text
                 style={{ fontFamily: 'open-sans-bold' }}
                 size={12}
@@ -75,6 +95,17 @@ class Card extends React.Component {
                 bold
               >
                 {item.cta}
+              </Text>
+            </Block>
+
+            <Block right={true}>
+              <Text
+                  style={{ fontFamily: 'open-sans-regular', textAlign: 'right', fontWeight: 'bold', width: '50%' }}
+                  size={8}
+                  style={styles.cardTitle}
+                  color={argonTheme.COLORS.TEXT}
+              >
+                {item.category.title}
               </Text>
             </Block>
           </Block>

@@ -24,6 +24,8 @@ import PrivacyScreen from "../screens/Privacy";
 // import Onboarding from "../screens/Onboarding";
 import Pro from "../screens/Pro";
 import Product from "../screens/Product";
+import Player from "../screens/Player/Player";
+
 import Profile from "../screens/Profile";
 import React from "react";
 import Register from "../screens/Register";
@@ -381,6 +383,23 @@ function HomeStack(props) {
           headerTransparent: true,
         }}
       />
+        <Stack.Screen
+            name="Player"
+            component={Player}
+            options={{
+                header: ({ navigation, scene }) => (
+                    <Header
+                        title=""
+                        back
+                        white
+                        transparent
+                        navigation={navigation}
+                        scene={scene}
+                    />
+                ),
+                headerTransparent: true,
+            }}
+        />
       <Stack.Screen
         name="Gallery"
         component={Gallery}

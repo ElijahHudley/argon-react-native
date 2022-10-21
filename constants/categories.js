@@ -1,4 +1,26 @@
 export default {
+  articles: {
+    audio: {
+      title: 'Audio',
+      description: 'Audio recordings and music',
+      image: 'https://images.unsplash.com/photo-1523979858672-687c4d4621a0?fit=crop&w=1333&q=80',
+    },
+    images: {
+      title: 'Images',
+      description: 'Image Gallery',
+      image: 'https://images.unsplash.com/photo-1523979858672-687c4d4621a0?fit=crop&w=1333&q=80',
+    },
+    announcements: {
+      title: 'Announcements',
+      description: 'Updates on the state of the App',
+      image: 'https://images.unsplash.com/photo-1523979858672-687c4d4621a0?fit=crop&w=1333&q=80',
+    },
+    blog: {
+      title: 'Blog',
+      description: 'Written text',
+      image: 'https://images.unsplash.com/photo-1523979858672-687c4d4621a0?fit=crop&w=1333&q=80',
+    },
+  },
   hands: {
     images: [
       {
