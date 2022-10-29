@@ -3,7 +3,7 @@ import {
     StyleSheet,
     Dimensions,
     ScrollView,
-    TouchableHighlight,
+    TouchableOpacity,
     TouchableWithoutFeedback,
     Image,
     Animated,
@@ -13,7 +13,13 @@ import {
 } from "react-native";
 
 import { Block, Text, Button, theme } from "galio-framework";
-import { Video } from 'expo-av';
+import {
+    Audio,
+    InterruptionModeAndroid,
+    InterruptionModeIOS,
+    ResizeMode,
+    Video
+} from "expo-av";
 
 import { Icon } from "../../components";
 import argonTheme from "../../constants/Theme";
@@ -25,143 +31,159 @@ import AlbumArt from './AlbumArt';
 import TrackDetails from './TrackDetails';
 import Controls from './Controls';
 import Seekbar from "./Seekbar";
+import source from "../../assets/music/song.mp3";
 
 const { height, width } = Dimensions.get("window");
 
-export const TRACKS = [
-    {
-        title: 'Stressed Out',
-        artist: 'Twenty One Pilots',
-        albumArtUrl: "http://36.media.tumblr.com/14e9a12cd4dca7a3c3c4fe178b607d27/tumblr_nlott6SmIh1ta3rfmo1_1280.jpg",
-        audioUrl: require('../../assets/music/11sec-Xylocopa_Isaac_Joel_instrumental_LOSSLESS.wav'),
-    },
-    {
-        title: 'Love Yourself',
-        artist: 'Justin Bieber',
-        albumArtUrl: "http://arrestedmotion.com/wp-content/uploads/2015/10/JB_Purpose-digital-deluxe-album-cover_lr.jpg",
-        audioUrl: 'http://srv2.dnupload.com/Music/Album/Justin%20Bieber%20-%20Purpose%20(Deluxe%20Version)%20(320)/Justin%20Bieber%20-%20Purpose%20(Deluxe%20Version)%20128/05%20Love%20Yourself.mp3',
-    },
-    {
-        title: 'Hotline Bling',
-        artist: 'Drake',
-        albumArtUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Drake_-_Hotline_Bling.png',
-        audioUrl: 'http://dl2.shirazsong.org/dl/music/94-10/CD%201%20-%20Best%20of%202015%20-%20Top%20Downloads/03.%20Drake%20-%20Hotline%20Bling%20.mp3',
-    },
-];
+class PlaylistItem {
+    constructor(name, uri, isVideo) {
+        this.name = name;
+        this.uri = uri;
+        this.isVideo = isVideo;
+    }
+}
+
+const PLAYLIST = [
+    new PlaylistItem(
+        "Comfort Fit - “Sorry”",
+        "https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3",
+        false
+    ),
+    new PlaylistItem(
+        "Big Buck Bunny",
+        "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+        true
+    ),
+    new PlaylistItem(
+        "Mildred Bailey – “All Of Me”",
+        "https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3",
+        false
+    ),
+    new PlaylistItem(
+        "Popeye - I don't scare",
+        "https://ia800501.us.archive.org/11/items/popeye_i_dont_scare/popeye_i_dont_scare_512kb.mp4",
+        true
+    ),
+    new PlaylistItem(
+        "Podington Bear - “Rubber Robot”",
+        "https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Podington_Bear_-_Rubber_Robot.mp3",
+        false
+    )
+]
+
 
 export default class Player extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            paused: false,
-            totalLength: 1,
-            currentPosition: 0,
-            selectedTrack: 0,
-            repeatOn: false,
-            shuffleOn: false,
-        };
+    state = {
+        sound: null,
+        isPlaying: false
     }
-
-    setDuration(data) {
-        // console.log(totalLength);
-        this.setState({totalLength: Math.floor(data.duration)});
-    }
-
-    setTime(data) {
-        //console.log(data);
-        this.setState({currentPosition: Math.floor(data.currentTime)});
-    }
-
-    seek(time) {
-        time = Math.round(time);
-        this.refs.audioElement && this.refs.audioElement.seek(time);
-        this.setState({
-            currentPosition: time,
-            paused: false,
-        });
-    }
-
-
-    loadStart(ready) {
-        console.log('loadStart', ready);
-    }
-
-    onBack() {
-        if (this.state.currentPosition < 10 && this.state.selectedTrack > 0) {
-            this.refs.audioElement && this.refs.audioElement.seek(0);
-            this.setState({ isChanging: true });
-            setTimeout(() => this.setState({
-                currentPosition: 0,
-                paused: false,
-                totalLength: 1,
-                isChanging: false,
-                selectedTrack: this.state.selectedTrack - 1,
-            }), 0);
+    async controlPlayer() {
+        if(this.state.isPlaying) {
+            await this.pause();
         } else {
-            this.refs.audioElement.seek(0);
-            this.setState({
-                currentPosition: 0,
+            await this.play();
+        }
+    }
+
+    async play() {
+        // const {sound} = await Audio.Sound.createAsync(require('../../assets/music/song.mp3'));
+        // this.setState({sound: sound});
+        // console.log('Playing Sound', sound);
+        // await sound.playAsync();
+        if(this.state.sound == null) {
+            await this.loadSound();
+        }
+
+        if(this.state.sound) {
+            console.log('Playing Sound', this.state.sound, 'status');
+            await this.state.sound.playAsync();
+            this.setState({isPlaying: true });
+        }
+
+    }
+
+    async pause() {
+        console.log('pause this.state', this.state);
+        if(this.state.sound !== null) {
+            this.state.sound.pauseAsync().catch(err => {
+                console.log("Unload warning: " + err);
             });
+            this.setState({isPlaying: false });
         }
     }
 
-    onForward() {
-        if (this.state.selectedTrack < TRACKS.length - 1) {
-            this.refs.audioElement && this.refs.audioElement.seek(0);
-            this.setState({ isChanging: true });
-            setTimeout(() => this.setState({
-                currentPosition: 0,
-                totalLength: 1,
-                paused: false,
-                isChanging: false,
-                selectedTrack: this.state.selectedTrack + 1,
-            }), 0);
+    async stop() {
+        console.log('stop this.state', this.state);
+        if(this.state && this.state.sound !== null) {
+            this.state.sound.unloadAsync().catch(err => {
+                console.log("Unload warning: " + err)
+            });
+            this.setState({isPlaying: false });
         }
     }
 
+    async _loadNewPlaybackInstance(playing) {
+        if (this.playbackInstance != null) {
+            await this.playbackInstance.unloadAsync();
+            this.playbackInstance = null;
+        }
+    }
 
+    async _onPlaybackStatusUpdate(status) {
+        //console.log('_onPlaybackStatusUpdate', status);
+    }
+
+    async loadSound() {
+        await Audio.setAudioModeAsync({
+            allowsRecordingIOS: false,
+            staysActiveInBackground: true,
+            interruptionModeIOS: InterruptionModeIOS.DuckOthers,
+            playsInSilentModeIOS: true,
+            shouldDuckAndroid: true,
+            interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
+            playThroughEarpieceAndroid: false
+        });
+        await this._loadNewPlaybackInstance(true);
+
+        // const source = require('../../assets/music/song.mp3');
+        const source = {uri: 'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3'}
+        const initialStatus = {
+            shouldPlay: true,
+            shouldCorrectPitch: false,
+            volume: 1.0,
+            isMuted: false,
+            // isLooping: this.state.loopingType === LOOPING_TYPE_ONE
+            // // UNCOMMENT THIS TO TEST THE OLD androidImplementation:
+            androidImplementation: 'MediaPlayer',
+        };
+        const {sound, status} = await Audio.Sound.createAsync(source,
+            initialStatus,
+            this._onPlaybackStatusUpdate);
+        this.setState({sound: sound, isPlaying: true });
+    }
+
+    async componentDidMount() {
+        console.log('Loading Sound');
+    }
+
+    componentWillUnmount() {
+        this.stop();
+    }
 
     render() {
-        const track = TRACKS[this.state.selectedTrack];
-        console.log('track', track);
-        const video = (
-            <Video source={{uri: '../../assets/music/11sec-Xylocopa_Isaac_Joel_instrumental_LOSSLESS.wav'}} // Can be a URL or a local file.
-                   ref="audioElement"
-                   paused={this.state.paused}               // Pauses playback entirely.
-                   resizeMode="cover"           // Fill the whole screen at aspect ratio.
-                   repeat={true}                // Repeat forever.
-                   onLoadStart={(r) => {console.log('ready', r)}} // Callback when video starts to load
-                   onLoad={this.setDuration.bind(this)}    // Callback when video loads
-                   onProgress={this.setTime.bind(this)}    // Callback every ~250ms with currentTime
-                   onEnd={this.onEnd}           // Callback when playback finishes
-                   onError={this.videoError}    // Callback when video cannot be loaded
-                   style={styles.audioElement} />
-        );
-
         return (
             <View style={styles.container}>
-                <StatusBar hidden={true} />
-                {/*<Header message="Playing From Charts" />*/}
-                {/*<AlbumArt url={track.albumArtUrl} />*/}
-                {/*<TrackDetails title={track.title} artist={track.artist} />*/}
-                {/*<Seekbar*/}
-                {/*    onSeek={this.seek.bind(this)}*/}
-                {/*    trackLength={this.state.totalLength}*/}
-                {/*    onSlidingStart={() => this.setState({paused: true})}*/}
-                {/*    currentPosition={this.state.currentPosition} />*/}
-                {/*<Controls*/}
-                {/*    onPressRepeat={() => this.setState({repeatOn : !this.state.repeatOn})}*/}
-                {/*    repeatOn={this.state.repeatOn}*/}
-                {/*    shuffleOn={this.state.shuffleOn}*/}
-                {/*    forwardDisabled={this.state.selectedTrack === TRACKS.length - 1}*/}
-                {/*    onPressShuffle={() => this.setState({shuffleOn: !this.state.shuffleOn})}*/}
-                {/*    onPressPlay={() => this.setState({paused: false})}*/}
-                {/*    onPressPause={() => this.setState({paused: true})}*/}
-                {/*    onBack={this.onBack.bind(this)}*/}
-                {/*    onForward={this.onForward.bind(this)}*/}
-                {/*    paused={this.state.paused}/>*/}
-                {video}
+                <Block flex style={styles.container}>
+                <StatusBar barStyle="light-content" />
+                <TouchableOpacity
+                    style={styles.button}
+                    underlayColor={argonTheme.COLORS.PRICE_COLOR}
+                    onPress={this.controlPlayer.bind(this)}
+                >
+                    <Text style={{ fontFamily: 'open-sans-regular' }} color={'white'}>{'label'}</Text>
+                </TouchableOpacity>
+                </Block>
             </View>
         );
     }
@@ -175,5 +197,11 @@ const styles = {
     audioElement: {
         height: 0,
         width: 0,
+    },
+    button: {
+        color: 'white',
+        backgroundColor: 'blue',
+        width: '100%',
+        height: '100%'
     }
 };

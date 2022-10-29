@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
   },
   dotsContainer: {
     position: "absolute",
-    bottom: theme.SIZES.BASE,
+    // bottom: theme.SIZES.BASE,
     left: 0,
     right: 0,
     bottom: height / 10

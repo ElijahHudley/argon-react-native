@@ -15,8 +15,8 @@ class Home extends React.Component {
         contentContainerStyle={styles.articles}
       >
         <Block flex>
-          {articles.map((article) => {
-            return <Card item={article} horizontal={article.horizontal} full={article.full || false} />
+          {articles.map((article, index) => {
+            return <Card key={`article-${index}`} item={article} horizontal={article.horizontal} full={article.full || false} />
           })}
         </Block>
       </ScrollView>
