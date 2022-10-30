@@ -13,6 +13,7 @@ import {
 } from "react-native";
 
 import { Block, Text, Button, theme } from "galio-framework";
+
 import {
     Audio,
     InterruptionModeAndroid,
@@ -20,6 +21,8 @@ import {
     ResizeMode,
     Video
 } from "expo-av";
+
+import Slider from '@react-native-community/slider';
 
 import { Icon } from "../../components";
 import argonTheme from "../../constants/Theme";
@@ -193,6 +196,15 @@ export default class Player extends React.Component {
                     />
                     </Block>
 
+                    <Block middle style={{ width: '100%', height: '50%', flexDirection: 'row' }}>
+                        <Slider
+                            style={{width: 200, height: 40}}
+                            minimumValue={0}
+                            maximumValue={1}
+                            minimumTrackTintColor="#FFFFFF"
+                            maximumTrackTintColor="#000000"
+                        />
+                    </Block>
 
                     <Block middle style={{ width: '100%', height: '50%', flexDirection: 'row' }}>
                         <Button
