@@ -31,7 +31,6 @@ import AlbumArt from './AlbumArt';
 import TrackDetails from './TrackDetails';
 import Controls from './Controls';
 import Seekbar from "./Seekbar";
-import source from "../../assets/music/song.mp3";
 
 const { height, width } = Dimensions.get("window");
 
@@ -76,8 +75,10 @@ export default class Player extends React.Component {
 
     state = {
         sound: null,
-        isPlaying: false
+        isPlaying: false,
+        repeat: false
     }
+
     async controlPlayer() {
         if(this.state.isPlaying) {
             await this.pause();
@@ -87,10 +88,6 @@ export default class Player extends React.Component {
     }
 
     async play() {
-        // const {sound} = await Audio.Sound.createAsync(require('../../assets/music/song.mp3'));
-        // this.setState({sound: sound});
-        // console.log('Playing Sound', sound);
-        // await sound.playAsync();
         if(this.state.sound == null) {
             await this.loadSound();
         }
@@ -100,7 +97,6 @@ export default class Player extends React.Component {
             await this.state.sound.playAsync();
             this.setState({isPlaying: true });
         }
-
     }
 
     async pause() {
@@ -110,6 +106,13 @@ export default class Player extends React.Component {
                 console.log("Unload warning: " + err);
             });
             this.setState({isPlaying: false });
+        }
+    }
+
+    async repeat() {
+        console.log('pause this.state', this.state);
+        if(this.state.sound !== null) {
+            this.setState({repeat: !this.state.repeat });
         }
     }
 
@@ -176,13 +179,51 @@ export default class Player extends React.Component {
             <View style={styles.container}>
                 <Block flex style={styles.container}>
                 <StatusBar barStyle="light-content" />
-                <TouchableOpacity
-                    style={styles.button}
-                    underlayColor={argonTheme.COLORS.PRICE_COLOR}
-                    onPress={this.controlPlayer.bind(this)}
-                >
-                    <Text style={{ fontFamily: 'open-sans-regular' }} color={'white'}>{'label'}</Text>
-                </TouchableOpacity>
+                    <Block middle style={{ width: '100%', height: '50%', flexDirection: 'row' }}>
+                        <Image
+                            style={{ width: 103, height: 222 }}
+                            source={Images.Player.ShadePrevious}
+                        />
+                        <Image
+                            style={{ width: 230, height: 230, margin: -30 }}
+                            source={Images.Player.Cover}
+                        /><Image
+                        style={{ width: 103, height: 222 }}
+                        source={Images.Player.ShadeNext}
+                    />
+                    </Block>
+
+
+                    <Block middle style={{ width: '100%', height: '50%', flexDirection: 'row' }}>
+                        <Button
+                            shadowless
+                            style={styles.button}
+                            // color={argonTheme.COLORS.INFO}
+                            onPress={this.controlPlayer.bind(this)}>
+                            <Text style={{ fontSize: 22, textAlign: 'center', fontWeight: '2600' }} color="white" size={60}>Repeat</Text>
+                        </Button>
+
+                        <Button
+                            shadowless
+                            style={styles.button}
+                            // color={argonTheme.COLORS.INFO}
+                            onPress={this.controlPlayer.bind(this)}>
+                            <Image
+                                style={styles.playBtn}
+                                source={this.state.isPlaying ? Images.Player.PauseBtn : Images.Player.PlayBtn}
+                            />
+                        </Button>
+
+                        <Button
+                            shadowless
+                            style={styles.button}
+                            // color={argonTheme.COLORS.INFO}
+                            onPress={this.repeat.bind(this)}>
+                            <Text style={{ fontSize: 22, textAlign: 'center', fontWeight: '2600' }} color="white" size={60}>Stop</Text>
+                            <Image style={styles.productImage} source={Images.Player.RepeatBtn}
+                            />
+                        </Button>
+                    </Block>
                 </Block>
             </View>
         );
@@ -192,16 +233,22 @@ export default class Player extends React.Component {
 const styles = {
     container: {
         flex: 1,
-        backgroundColor: 'rgb(4,4,4)',
     },
     audioElement: {
         height: 0,
         width: 0,
     },
     button: {
+        backgroundColor: 'transparent',
+        borderWidth: 2,
+        borderColor: 'red',
+        shadowColor: 'transparent',
         color: 'white',
-        backgroundColor: 'blue',
-        width: '100%',
-        height: '100%'
+        width: '30%',
+        height: '20%'
+    },
+    playBtn: {
+        width: 90,
+        height: 90
     }
 };

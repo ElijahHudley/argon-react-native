@@ -20,74 +20,30 @@ export default class Pro extends React.Component {
     return (
       <Block flex style={styles.container}>
         <StatusBar barStyle="light-content" />
-        <Block flex>
+        <Block flex >
           <ImageBackground
             source={Images.Onboarding}
-            style={{ flex: 1, height: height, width, zIndex: 1, backgroundColor: 'white' }}
+            style={{ flex: 1, height: height + 50, width, zIndex: 1, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}
           />
-          <Block space="between" style={styles.padded}>
-            <Block>
-              <Block>
-                <Image
-                  source={Images.ArgonLogo}
-                  style={{ marginBottom: theme.SIZES.BASE * 1.5 }}
-                />
-              </Block>
-              <Block>
-                <Block>
-                  <Text style={{ fontFamily: 'salt', fontSize: 34, textAlign: 'center', fontWeight: '200' }} color="black" size={60}>Bold Gospel Alive</Text>
-                </Block>
-                {/*<Block>*/}
-                {/*  <Text style={{ fontFamily: 'open-sans-regular' }} color="black" size={60}>*/}
-                {/*    Gospel*/}
-                {/*  </Text>*/}
-                {/*</Block>*/}
-                {/*<Block row>*/}
-                {/*  <Text style={{ fontFamily: 'open-sans-regular' }} color="black" size={60}>*/}
-                {/*    Alive*/}
-                {/*  </Text>*/}
-                {/*</Block>*/}
-              </Block>
-              <Text
-                size={16}
-                color="rgba(255,255,255,0.6)"
-                style={{ marginTop: 35, fontFamily: 'open-sans-regular' }}
-              >
-                Take advantage of all the features and screens made upon Galio
-                Design System, coded on React Native for both.
-              </Text>
-              <Block
-                row
-                style={{
-                  marginTop: theme.SIZES.BASE * 1.5,
-                  marginBottom: theme.SIZES.BASE * 4
-                }}
-              >
-                <Image
-                  source={Images.iOSLogo}
-                  style={{
-                    height: 38,
-                    width: 82,
-                    marginRight: theme.SIZES.BASE * 1.5
-                  }}
-                />
-                <Image
-                  source={Images.androidLogo}
-                  style={{ height: 38, width: 140 }}
-                />
-              </Block>
+          <Block middle center style={{ ...styles.padded, height: '80%', zIndex: 2 }}>
+              <Text style={{ fontFamily: 'salt', fontSize: 34, textAlign: 'center', fontWeight: '200' }} color="black" size={60}>Bold Gospel Alive</Text>
+          </Block>
+
+            <Block middle style={{paddingBottom: 32, zIndex: 3}}>
               <Button
-                shadowless
-                style={styles.button}
-                color={argonTheme.COLORS.INFO}
-                onPress={() => navigation.navigate("App")}
-              >
-                <Text style={{ fontFamily: 'open-sans-bold', fontSize: 14 }} color={theme.COLORS.WHITE}>
-                  GET STARTED
-                </Text>
+                  shadowless
+                  style={styles.button}
+                  color={argonTheme.COLORS.INFO}
+                  onPress={() => navigation.navigate("App")}>
+                <Text style={{ fontSize: 22, textAlign: 'center', fontWeight: '2600' }} color="white" size={60}>Get Started</Text>
               </Button>
             </Block>
-          </Block>
+            {/*    <Text style={{ fontFamily: 'open-sans-bold', fontSize: 14 }} color={theme.COLORS.WHITE}>*/}
+            {/*      GET STARTED*/}
+            {/*    </Text>*/}
+
+            {/*  </Button>*/}
+            {/*</Block>*/}
         </Block>
       </Block>
     );
@@ -98,6 +54,11 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.COLORS.BLACK,
     marginTop: Platform.OS === "android" ? -HeaderHeight : 0
+  },
+  center: {
+      justifyContent: 'center', //Centered horizontally
+      alignItems: 'center', //Centered vertically
+      flex:1
   },
   padded: {
     paddingHorizontal: theme.SIZES.BASE * 2,
@@ -110,7 +71,7 @@ const styles = StyleSheet.create({
     width: width - theme.SIZES.BASE * 4,
     height: theme.SIZES.BASE * 3,
     shadowRadius: 0,
-    shadowOpacity: 0
+    shadowOpacity: 0,
   },
   pro: {
     backgroundColor: argonTheme.COLORS.INFO,

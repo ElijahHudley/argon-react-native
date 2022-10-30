@@ -40,6 +40,18 @@ const Music = {
   'Wedding_dress': 'https://images.unsplash.com/photo-1519657337289-077653f724ed?fit=crop&w=1350&q=80'
 }
 
+const Player = {
+  'PlayBtn': require("../assets/imgs/player/play-btn.png"),
+  'PauseBtn': require("../assets/imgs/player/pause-btn.png"),
+  'RepeatBtn': require("../assets/imgs/player/repeat.png"),
+
+  'AlbumBackground': require("../assets/imgs/player/cover.png"),
+  'ShadeNext': require("../assets/imgs/player/next-shade.png"),
+  'ShadePrevious': require("../assets/imgs/player/prev-shade.png"),
+
+  'Cover': require("../assets/imgs/player/cover.png")
+}
+
 const Products = {
   'View article': 'https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=840&q=840',
 };
@@ -59,5 +71,6 @@ export default {
   androidLogo,
   Beauty,
   Music,
-  ProfileChat
+  ProfileChat,
+  Player
 };

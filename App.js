@@ -50,7 +50,7 @@ class App extends React.Component {
       'open-sans-bold': require('./assets/font/OpenSans-Bold.ttf'),
       'salt': require('./assets/font/Salt.ttf'),
       'salt-bold': require('./assets/font/Salt-Bold.ttf'),
-    }).then(() => {
+    }).then(() => { 
       return true;
     });
     console.log('fontsLoaded', fontsLoaded);
