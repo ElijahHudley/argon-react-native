@@ -38,12 +38,6 @@ export default class Pro extends React.Component {
                 <Text style={{ fontSize: 22, textAlign: 'center', fontWeight: '2600' }} color="white" size={60}>Get Started</Text>
               </Button>
             </Block>
-            {/*    <Text style={{ fontFamily: 'open-sans-bold', fontSize: 14 }} color={theme.COLORS.WHITE}>*/}
-            {/*      GET STARTED*/}
-            {/*    </Text>*/}
-
-            {/*  </Button>*/}
-            {/*</Block>*/}
         </Block>
       </Block>
     );

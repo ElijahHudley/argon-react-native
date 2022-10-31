@@ -1,12 +1,13 @@
 import React from 'react';
 import { Image } from 'react-native';
-import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen';
+
 import * as Font from 'expo-font';
 import { Asset } from 'expo-asset';
 import { Block, GalioProvider } from 'galio-framework';
 import { NavigationContainer } from '@react-navigation/native';
 
-// Before rendering any navigation stack
+// Before rendering any navigation stackr
 import { enableScreens } from 'react-native-screens';
 enableScreens();
 
@@ -37,11 +38,36 @@ function cacheImages(images) {
   });
 }
 
+SplashScreen.preventAutoHideAsync();
+
+
 class App extends React.Component {
   state = {
     isLoadingComplete: false,
     fontLoaded: false,
   }
+  async _loadResourcesAsync() {
+    console.log('_loadResourcesAsync');
+    return Promise.all([
+      ...cacheImages(assetImages),
+    ]);
+
+  };
+
+  _handleLoadingError = error => {
+    // In this case, you might want to report the error to your error
+    // reporting service, for example Sentry
+    console.log('_handleLoadingError');
+    console.warn(error);
+  };
+
+  async _handleFinishLoading() {
+    console.log('_handleFinishLoading');
+    await SplashScreen.hideAsync();
+    if(this.state.fontLoaded) {
+      this.setState({ isLoadingComplete: true });
+    }
+  };
 
   async componentDidMount() {
     const fontsLoaded = await Font.loadAsync({
@@ -55,18 +81,12 @@ class App extends React.Component {
     });
     console.log('fontsLoaded', fontsLoaded);
     this.setState({ fontLoaded: fontsLoaded });
+
+    await this._loadResourcesAsync().then((result) => this._handleFinishLoading(result));
   }
 
   render() {
-    if(!this.state.isLoadingComplete) {
-      return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
-      );
-    } else {
+    if(this.state.isLoadingComplete) {
       return (
         <NavigationContainer>
           <GalioProvider theme={argonTheme}>
@@ -78,28 +98,6 @@ class App extends React.Component {
       );
     }
   }
-
-  _loadResourcesAsync = async () => {
-    console.log('_loadResourcesAsync');
-    return Promise.all([
-      ...cacheImages(assetImages),
-    ]);
-  };
-
-  _handleLoadingError = error => {
-    // In this case, you might want to report the error to your error
-    // reporting service, for example Sentry
-    console.log('_handleLoadingError');
-    console.warn(error);
-  };
-
-  _handleFinishLoading = () => {
-    console.log('_handleFinishLoading');
-    if(this.state.fontLoaded) {
-      this.setState({ isLoadingComplete: true });
-    }
-  };
-
 }
 
 export default App;

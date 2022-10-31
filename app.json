@@ -25,6 +25,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "EliLabs"
     },
-    "description": "Argon Pro React Native, based on Argon Design System. Coded by Creative Tim"
+    "description": "Argon Pro React Native, based on Argon Design System. Coded by Creative Tim",
+    "android": {
+      "package": "bga.app"
+    }
   }
 }
