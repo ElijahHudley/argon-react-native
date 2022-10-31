@@ -1,75 +1,32 @@
 import React from "react";
 import {
-    StyleSheet,
     Dimensions,
-    ScrollView,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
     Image,
-    Animated,
-    Platform,
     View,
     StatusBar
 } from "react-native";
 
-import { Block, Text, Button, Card } from "galio-framework";
+import { Block, Text, Button } from "galio-framework";
 
 import {
     Audio,
     InterruptionModeAndroid,
     InterruptionModeIOS,
-    ResizeMode,
-    Video
 } from "expo-av";
 
 import Slider from '@react-native-community/slider';
 
-import { Icon } from "../../components";
 import argonTheme from "../../constants/Theme";
 import Images from "../../constants/Images";
 import { iPhoneX, HeaderHeight } from "../../constants/utils";
-
-import Header from './Header';
-import AlbumArt from './AlbumArt';
-import TrackDetails from './TrackDetails';
-import Controls from './Controls';
-import Seekbar from "./Seekbar";
-
 const { height, width } = Dimensions.get("window");
 
-class PlaylistItem {
-    constructor(name, uri, isVideo) {
-        this.name = name;
-        this.uri = uri;
-    }
-}
-
 const PLAYLIST = [
-    new PlaylistItem(
-        "Comfort Fit - “Sorry”",
         "https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3",
-        false
-    ),
-    new PlaylistItem(
-        "Big Buck Bunny",
         "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-        true
-    ),
-    new PlaylistItem(
-        "Mildred Bailey – “All Of Me”",
         "https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3",
-        false
-    ),
-    new PlaylistItem(
-        "Popeye - I don't scare",
         "https://ia800501.us.archive.org/11/items/popeye_i_dont_scare/popeye_i_dont_scare_512kb.mp4",
-        true
-    ),
-    new PlaylistItem(
-        "Podington Bear - “Rubber Robot”",
         "https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Podington_Bear_-_Rubber_Robot.mp3",
-        false
-    )
 ]
 
 
@@ -184,7 +141,7 @@ export default class Player extends React.Component {
         // await this._loadNewPlaybackInstance();
 
         // const source = require('../../assets/music/song.mp3');
-        const source = {uri: 'https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3'}
+        const source = {uri: PLAYLIST}
         const initialStatus = {
             shouldPlay: true,
             shouldCorrectPitch: false,
