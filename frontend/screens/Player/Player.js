@@ -267,8 +267,8 @@ export default class Player extends React.Component {
                                 shadowless
                                 style={styles.button}
                                 onPress={this.repeat.bind(this)}>
-                                <Text style={styles.transcribeText} color="black" size={22}>{'Transcription'}</Text>
-                                <Image style={styles.transcribeArrow} source={Images.Player.transcribeArrow} />
+                                <Text bold style={styles.transcribeText} color="black" size={22}>{'Transcription'}</Text>
+                                <Image resizeMode={'contain'} style={styles.transcribeArrow} source={Images.Player.transcribeArrow} />
                             </Button>
                         </Block>
                     </Block>
@@ -318,7 +318,7 @@ const styles = {
         marginTop: -50
     },
     slider: {
-        width: 300,
+        width: 320,
         height: 40,
     },
     audioElement: {
@@ -351,7 +351,6 @@ const styles = {
         width: '60%',
         height: '50%',
         marginTop: -20
-
     },
     transcribeContainer: {
         height: '100%',
@@ -367,11 +366,14 @@ const styles = {
         alignItems: 'center',
     },
     transcribeArrow: {
+        height: '300%',
+        width: '100%',
+        marginTop: -10
     },
     transcribeText: {
         height: '100%',
-        width: '100%',
+        width: '120%',
         textAlign: 'center',
-        fontWeight: '300'
+        marginTop: 10
     }
 };
