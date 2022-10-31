@@ -7,8 +7,8 @@ var ArticleSchema = new Schema({
 	cta: {type: String, required: true},
 	category: {type: String, required: true},
 	image: {type: String, required: true},
-	horizontal: {type: Boolean, require: true},
-	full: {type: Boolean, required: true},
+	horizontal: {type: Boolean, require: false},
+	full: {type: Boolean, required: false},
 	user: { type: Schema.ObjectId, ref: "User", required: true },
 }, {timestamps: true});
 

@@ -85,12 +85,13 @@ exports.articleDetail = [
  */
 exports.articleStore = [
 	auth,
-	body("title", "Title must not be empty.").isLength({ min: 1 }).trim(),
+	body("category", "Category must not be empty").isLength({ min: 1 }).trim(),
 	body("cta", "Description must not be empty.").isLength({ min: 1 }).trim(),
-	body("category", "Category must not be empty").isLength({ min: 1 }).trim().custom((value,{req}) => {
-		return Article.findOne({category : value,user: req.user._id}).then(article => {
+	body("image", "Image must not be empty.").isLength({ min: 1 }).trim(),
+	body("title", "Title must not be empty").isLength({ min: 1 }).trim().custom((value,{req}) => {
+		return Article.findOne({title : value, user: req.user._id}).then(article => {
 			if (article) {
-				return Promise.reject("Article already exist with this ISBN no.");
+				return Promise.reject("Article already exist with this title no.");
 			}
 		});
 	}),
@@ -102,7 +103,8 @@ exports.articleStore = [
 				{ title: req.body.title,
 					user: req.user,
 					cta: req.body.cta,
-					category: req.body.category
+					category: req.body.category,
+					image: req.body.image
 				});
 
 			if (!errors.isEmpty()) {
