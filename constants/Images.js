@@ -44,12 +44,14 @@ const Player = {
   'PlayBtn': require("../assets/imgs/player/play-btn.png"),
   'PauseBtn': require("../assets/imgs/player/pause-btn.png"),
   'RepeatBtn': require("../assets/imgs/player/repeat.png"),
+  'ShuffleBtn': require("../assets/imgs/player/shuffle-btn.png"),
 
   'AlbumBackground': require("../assets/imgs/player/cover.png"),
   'ShadeNext': require("../assets/imgs/player/next-shade.png"),
   'ShadePrevious': require("../assets/imgs/player/prev-shade.png"),
 
-  'Cover': require("../assets/imgs/player/cover.png")
+  'Cover': require("../assets/imgs/player/cover.png"),
+  'transcribeArrow': require('../assets/imgs/player/downArrow.png')
 }
 
 const Products = {

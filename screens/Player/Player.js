@@ -12,7 +12,7 @@ import {
     StatusBar
 } from "react-native";
 
-import { Block, Text, Button, theme } from "galio-framework";
+import { Block, Text, Button, Card } from "galio-framework";
 
 import {
     Audio,
@@ -79,10 +79,10 @@ export default class Player extends React.Component {
         sound: null,
         isPlaying: false,
         isLooping: false,
-        update: null
     }
 
     sound = React.createRef();
+    update = React.createRef();
 
     async controlPlayer() {
         if(this.state.isPlaying) {
@@ -102,7 +102,6 @@ export default class Player extends React.Component {
             await this.sound.current.playAsync().then(function(data) {
                 console.log('data', data);
             });
-            this.setState({ isPlaying: true });
         }
     }
 
@@ -150,11 +149,12 @@ export default class Player extends React.Component {
             }
         } else {
             // Update your UI for the loaded state
+            this.update.current = playbackStatus;
 
             if (playbackStatus.isPlaying) {
                 // Update your UI for the playing state
                 console.log('_onPlaybackStatusUpdate', playbackStatus);
-                this.state.update = playbackStatus;
+                this.setState({ isPlaying: playbackStatus.isPlaying });
 
             } else {
                 // Update your UI for the paused state
@@ -184,7 +184,7 @@ export default class Player extends React.Component {
         // await this._loadNewPlaybackInstance();
 
         // const source = require('../../assets/music/song.mp3');
-        const source = {uri: 'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3'}
+        const source = {uri: 'https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3'}
         const initialStatus = {
             shouldPlay: true,
             shouldCorrectPitch: false,
@@ -200,11 +200,11 @@ export default class Player extends React.Component {
                 source,
                 initialStatus,
                 this._onPlaybackStatusUpdate.bind(this));
-            this.state.update = status;
+            this.update.current = status;
             this.sound.current = sound;
-            // await this.sound.current.setProgressUpdateIntervalAsync(1000);
+            await this.sound.current.setProgressUpdateIntervalAsync(1000);
             // await this.sound.current.setPositionAsync(0);
-            this.setState({sound: sound, isPlaying: true });
+            // this.setState({sound: sound, isPlaying: true });
         } catch (e) {
             console.log('error', e);
         }
@@ -227,8 +227,9 @@ export default class Player extends React.Component {
         return String(pad(hrs) + ':' + pad(mins) + ':' + pad(secs));
     }
 
-    sliderUpdate(status) {
+    async sliderUpdate(status) {
         console.log('sliderUpdate status', status);
+        await this.sound.current.setPositionAsync(status);
     }
 
     async componentDidMount() {
@@ -263,19 +264,20 @@ export default class Player extends React.Component {
                             source={Images.Player.ShadeNext}
                         />
                     </Block>
-                    <Block middle style={styles.sliderContainer}>
-                        <Text muted size={13} style={styles.subTitle}> {this.msToTime(this.state.update?.positionMillis || 0)} {'|'}</Text>
-                        <Text muted size={13} style={styles.subTitle}> {this.msToTime(this.state.update?.playableDurationMillis || 0)} </Text>
+                    <Block middle style={styles.durationContainer}>
+                        <Text muted size={13} style={styles.subTitle}> {this.msToTime(this.update.current?.positionMillis || 0)} {'|'}</Text>
+                        <Text muted size={13} style={styles.subTitle}> {this.msToTime(this.update.current?.playableDurationMillis || 0)} </Text>
                     </Block>
                     <Block middle style={styles.sliderContainer}>
                         <Slider
                             style={styles.slider}
                             minimumValue={0}
-                            maximumValue={this.state.update ? this.state.update.playableDurationMillis : 0}
+                            maximumValue={this.update.current ? this.update.current?.playableDurationMillis : 0}
                             minimumTrackTintColor="#FFFFFF"
                             maximumTrackTintColor="#000000"
-                            value={this.state.update ? this.state.update.positionMillis : 0}
+                            value={this.update.current ? this.update.current?.positionMillis : 0}
                             onValueChange={this.sliderUpdate.bind(this)}
+                            tapToSeek
                         />
                     </Block>
 
@@ -284,36 +286,34 @@ export default class Player extends React.Component {
                             shadowless
                             style={styles.button}
                             onPress={this.controlPlayer.bind(this)}>
-                            <Text style={{ fontSize: 22, textAlign: 'center', fontWeight: '2600' }} color="white" size={60}>Loop</Text>
+                            <Image resizeMode={'contain'} style={styles.sideButtonsShuffle} source={Images.Player.ShuffleBtn} />
                         </Button>
 
                         <Button
                             shadowless
                             style={styles.button}
                             onPress={this.controlPlayer.bind(this)}>
-                            <Image
-                                style={styles.playBtn}
-                                source={this.state.isPlaying ? Images.Player.PauseBtn : Images.Player.PlayBtn}
-                            />
+                            <Image resizeMode={'contain'} style={styles.playBtn} source={this.state.isPlaying ? Images.Player.PauseBtn : Images.Player.PlayBtn} />
                         </Button>
 
                         <Button
                             shadowless
                             style={styles.button}
                             onPress={this.repeat.bind(this)}>
-                                <Text style={{ fontSize: 22, textAlign: 'center', fontWeight: '2600' }} color="white" size={60}>Stop</Text>
-                                <Image style={styles.productImage} source={Images.Player.RepeatBtn}
-                            />
+                            <Image resizeMode={'contain'} style={styles.sideButtonsRepeat} source={Images.Player.RepeatBtn} />
                         </Button>
                     </Block>
 
-                    <Block middle style={styles.buttonContainer}>
-                        <Button
-                            shadowless
-                            style={styles.button}
-                            onPress={this.repeat.bind(this)}>
-                                <Text style={{ fontSize: 22, textAlign: 'center', fontWeight: '2600' }} color="white" size={60}>{'Transcription'}</Text>
-                        </Button>
+                    <Block middle style={styles.transcribeContainer}>
+                        <Block style={styles.transcribe}>
+                            <Button
+                                shadowless
+                                style={styles.button}
+                                onPress={this.repeat.bind(this)}>
+                                <Text style={styles.transcribeText} color="black" size={22}>{'Transcription'}</Text>
+                                <Image style={styles.transcribeArrow} source={Images.Player.transcribeArrow} />
+                            </Button>
+                        </Block>
                     </Block>
                 </Block>
             </View>
@@ -348,11 +348,17 @@ const styles = {
         flexDirection: 'row',
         marginTop: -80
     },
-    sliderContainer: {
+    durationContainer: {
         width: '100%',
         height: '10%',
         flexDirection: 'row',
         marginTop: -100
+    },
+    sliderContainer: {
+        width: '100%',
+        height: '10%',
+        flexDirection: 'row',
+        marginTop: -50
     },
     slider: {
         width: 300,
@@ -366,13 +372,10 @@ const styles = {
         width: '100%',
         height: '30%',
         flexDirection: 'row',
-        marginTop: -60
+        marginTop: -50
     },
     button: {
         backgroundColor: 'transparent',
-        // borderWidth: 2,
-        // borderColor: 'red',
-        // shadowColor: 'transparent',
         color: 'white',
         width: '30%',
         height: '20%'
@@ -380,5 +383,38 @@ const styles = {
     playBtn: {
         width: 130,
         height: 130
+    },
+    sideButtonsRepeat: {
+        width: '60%',
+        height: '50%',
+        marginRight: 10,
+        marginTop: -20
+    },
+    sideButtonsShuffle: {
+        width: '60%',
+        height: '50%',
+        marginTop: -20
+
+    },
+    transcribeContainer: {
+        height: '100%',
+        width: '100%',
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    transcribe: {
+        height: '100%',
+        width: '100%',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    transcribeArrow: {
+    },
+    transcribeText: {
+        height: '100%',
+        width: '100%',
+        textAlign: 'center',
+        fontWeight: '300'
     }
 };
