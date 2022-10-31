@@ -1,6 +1,5 @@
 const Book = require("../models/BookModel");
 const { body,validationResult } = require("express-validator");
-const { sanitizeBody } = require("express-validator");
 const apiResponse = require("../helpers/apiResponse");
 const auth = require("../middlewares/jwt");
 var mongoose = require("mongoose");
@@ -87,7 +86,7 @@ exports.bookStore = [
 			}
 		});
 	}),
-	sanitizeBody("*").escape(),
+	body("*").escape(),
 	(req, res) => {
 		try {
 			const errors = validationResult(req);
@@ -136,7 +135,7 @@ exports.bookUpdate = [
 			}
 		});
 	}),
-	sanitizeBody("*").escape(),
+	body("*").escape(),
 	(req, res) => {
 		try {
 			const errors = validationResult(req);
