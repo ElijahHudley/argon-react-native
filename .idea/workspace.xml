@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a1e9d5d-4d65-4c27-ab7b-8a9fdb7da310" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/api/ArticleAPI.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/api/AuthAPI.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/context/ArticleContext.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/context/AuthContext.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/ArticleController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/ArticleController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/AuthController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/AuthController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/models/ArticleModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/ArticleModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/test/book.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/ISSUE_TEMPLATE.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/ISSUE_TEMPLATE.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +34,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/eliworks/WebstormProjects/argon-react-native/backend/models",
+    "last_opened_file_path": "/Users/eliworks/WebstormProjects/argon-react-native/frontend",
     "nodejs_package_manager_path": "yarn",
     "vue.rearranger.settings.migration": "true"
   }
@@ -48,13 +49,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend" />
+      <recent name="$PROJECT_DIR$/frontend/context" />
       <recent name="$PROJECT_DIR$/backend/models" />
       <recent name="$PROJECT_DIR$/backend/controllers" />
       <recent name="$PROJECT_DIR$/backend/routes" />
-      <recent name="$PROJECT_DIR$/assets/music" />
-      <recent name="$PROJECT_DIR$/assets/imgs/player" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/context" />
       <recent name="$PROJECT_DIR$/assets/imgs/player" />
       <recent name="$PROJECT_DIR$/screens/Player" />
     </key>
@@ -68,7 +70,7 @@
       <option name="presentableId" value="Default" />
       <updated>1664237343728</updated>
       <workItem from="1664237345258" duration="35450000" />
-      <workItem from="1667208925069" duration="36136000" />
+      <workItem from="1667208925069" duration="39487000" />
     </task>
     <servers />
   </component>

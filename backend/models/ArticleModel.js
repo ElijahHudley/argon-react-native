@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var ArticleSchema = new Schema({
 	title: {type: String, required: true},
 	cta: {type: String, required: true},
-	category: {type: String, required: true},
+	category: {type: Number, required: true},
 	image: {type: String, required: true},
 	horizontal: {type: Boolean, require: false},
 	full: {type: Boolean, required: false},
